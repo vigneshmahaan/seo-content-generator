@@ -14,9 +14,7 @@ services:
       
       # Supabase (REQUIRED)
       - key: SUPABASE_URL
-        fromDatabase:
-          name: default
-          property: connectionString
+        sync: false
       - key: SUPABASE_KEY
         sync: false
       
