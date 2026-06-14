@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  seo-content-generator:
+    build: .
+    container_name: seo_content_generator
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    restart: always

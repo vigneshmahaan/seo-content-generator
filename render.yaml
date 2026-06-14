@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: seo-content-generator
+    env: python
+    region: oregon  # Change to closest region: oregon, virginia, frankfurt, singapore
+    plan: free  # Can upgrade to paid
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app/main.py
+    
+    # Environment variables (add these in Render dashboard)
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      
+      # Supabase (REQUIRED)
+      - key: SUPABASE_URL
+        fromDatabase:
+          name: default
+          property: connectionString
+      - key: SUPABASE_KEY
+        sync: false
+      
+      # Google (REQUIRED)
+      - key: GOOGLE_SHEET_ID
+        sync: false
+      - key: GOOGLE_CREDENTIALS_FILE
+        value: "secrets/google-service-account.json"
+      
+      # API Keys (at least OpenRouter recommended)
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      
+      # Scheduler
+      - key: SCHEDULER_INTERVAL_SECONDS
+        value: "20"
