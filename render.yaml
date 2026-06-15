@@ -22,7 +22,7 @@ services:
       - key: GOOGLE_SHEET_ID
         sync: false
       - key: GOOGLE_CREDENTIALS_FILE
-        value: "secrets/google-service-account.json"
+        value: "/etc/secrets/google-service-account.json"
       
       # API Keys (at least OpenRouter recommended)
       - key: OPENROUTER_API_KEY

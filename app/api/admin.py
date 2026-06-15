@@ -13,6 +13,7 @@ class ConfigUpdate(BaseModel):
     gemini_api_key: str = ""
     groq_api_key: str = ""
     openai_api_key: str = ""
+    custom_prompt_template: str = ""
     scheduler_interval_seconds: int = 20
 
 
@@ -208,6 +209,11 @@ def create_admin_routes(app: FastAPI, logger: logging.Logger) -> None:
             </div>
             
             <div class="form-group">
+                <label for="customPromptTemplate">Custom Prompt Template</label>
+                <textarea id="customPromptTemplate" name="customPromptTemplate" rows="6" placeholder="Write your prompt description here (e.g. 'Write a blog post'). The primary and secondary keywords will be automatically appended to the end."></textarea>
+            </div>
+            
+            <div class="form-group">
                 <label for="schedulerInterval">Scheduler Interval (seconds)</label>
                 <input type="number" id="schedulerInterval" name="schedulerInterval" min="5" max="3600" value="20">
             </div>
@@ -241,6 +247,7 @@ def create_admin_routes(app: FastAPI, logger: logging.Logger) -> None:
                 document.getElementById('geminiApiKey').value = config.gemini_api_key || '';
                 document.getElementById('groqApiKey').value = config.groq_api_key || '';
                 document.getElementById('openaiApiKey').value = config.openai_api_key || '';
+                document.getElementById('customPromptTemplate').value = config.custom_prompt_template || '';
                 document.getElementById('schedulerInterval').value = config.scheduler_interval_seconds || 20;
             } catch (error) {
                 showMessage('Failed to load configuration: ' + error.message, 'error');
@@ -260,6 +267,7 @@ def create_admin_routes(app: FastAPI, logger: logging.Logger) -> None:
                 gemini_api_key: formData.get('geminiApiKey'),
                 groq_api_key: formData.get('groqApiKey'),
                 openai_api_key: formData.get('openaiApiKey'),
+                custom_prompt_template: formData.get('customPromptTemplate'),
                 scheduler_interval_seconds: parseInt(formData.get('schedulerInterval')) || 20,
             };
             
@@ -312,6 +320,7 @@ def create_admin_routes(app: FastAPI, logger: logging.Logger) -> None:
                 "gemini_api_key": active_settings.gemini_api_key,
                 "groq_api_key": active_settings.groq_api_key,
                 "openai_api_key": active_settings.openai_api_key,
+                "custom_prompt_template": active_settings.custom_prompt_template,
                 "scheduler_interval_seconds": active_settings.scheduler_interval_seconds,
             }
         except Exception as e:

@@ -16,6 +16,7 @@ class ConfigManager:
         "gemini_api_key": "",
         "groq_api_key": "",
         "openai_api_key": "",
+        "custom_prompt_template": "Write a single SEO-optimized marketing paragraph between 150 and 250 words.\nUse persuasive, human-written language with a strong call-to-action.\nPlace the keywords naturally and avoid robotic phrasing.\nKeep readability high, vary sentence structure, and provide a unique introduction and closing.",
         "scheduler_interval_seconds": 20,
     }
     

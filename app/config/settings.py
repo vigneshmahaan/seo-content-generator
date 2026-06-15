@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     groq_api_key: str = Field(..., env="GROQ_API_KEY")
     openai_api_key: str = Field(..., env="OPENAI_API_KEY")
     openrouter_api_key: str = Field(..., env="OPENROUTER_API_KEY")
+    custom_prompt_template: str = Field(
+        "Write a single SEO-optimized marketing paragraph between 150 and 250 words.\nUse persuasive, human-written language with a strong call-to-action.\nPlace the keywords naturally and avoid robotic phrasing.\nKeep readability high, vary sentence structure, and provide a unique introduction and closing.",
+        env="CUSTOM_PROMPT_TEMPLATE"
+    )
     gemini_api_url: str = Field(
         "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generate",
         env="GEMINI_API_URL",
@@ -53,6 +57,8 @@ class Settings(BaseSettings):
                 self.groq_api_key = runtime_config["groq_api_key"]
             if runtime_config.get("openai_api_key"):
                 self.openai_api_key = runtime_config["openai_api_key"]
+            if runtime_config.get("custom_prompt_template"):
+                self.custom_prompt_template = runtime_config["custom_prompt_template"]
             if runtime_config.get("scheduler_interval_seconds"):
                 self.scheduler_interval_seconds = runtime_config["scheduler_interval_seconds"]
         except Exception:

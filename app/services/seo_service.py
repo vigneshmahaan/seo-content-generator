@@ -7,6 +7,7 @@ from app.repositories.seo_content_repository import SEOContentRepository
 from app.repositories.system_log_repository import SystemLogRepository
 from app.services.google_sheet_service import GoogleSheetService
 from app.services.ai_router import AIRouter, AIProviderError
+from app.config.config_manager import ConfigManager
 
 
 class SEOService:
@@ -73,7 +74,11 @@ class SEOService:
                 )
 
                 recent_contents = await self.content_repository.fetch_recent(days=7)
+                
+                template = ConfigManager.get("custom_prompt_template") or self.sheet_service.settings.custom_prompt_template
+                
                 prompt = build_seo_prompt(
+                    template,
                     row["input_one"],
                     row["input_two"],
                     row.get("input_three") or "",
